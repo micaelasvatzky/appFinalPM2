@@ -19,6 +19,7 @@
 
 #main, #perfil, .game{
   padding: 0;
+  padding-top: env(safe-area-inset-top);
   margin: 0;
   width: 100vw;
   height: 100vh;
