@@ -1,0 +1,36 @@
+#g1 a{
+    text-decoration: none;
+    color:grey;
+}
+
+#g1 #contenedor {
+    display: grid;
+    grid-template-columns: repeat(3,100px);
+    gap: 5px;
+    /* justify-content: space-evenly;
+    width: 40%;
+    height: 5% ; */
+}
+
+#g1 #contenedor > div{
+    border: 1px solid black;
+    width: 100px;
+    height: 100px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#g1 .disable{
+    background-color: #ccc;
+    pointer-events: none;
+}
+
+#g1 .disable:hover{
+    cursor:not-allowed;
+}
+
+#g1 .winner{
+    background-color: rgb(194, 95, 255);
+    color:white;
+}
