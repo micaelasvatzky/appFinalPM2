@@ -1,0 +1,33 @@
+#g2 #contenedorGenerala{
+    display: grid;
+    grid-template-columns: repeat(3,100px);
+    gap: 5px;
+}
+
+
+#g2 #contenedorGenerala > div{
+    border: 1px solid black;
+    width: 100px;
+    height: 100px ;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin: 10px;
+}
+
+#g2 .disable{
+    background-color: #ccc;
+    pointer-events: none;
+}
+
+#g2 .disable:hover{
+    cursor:not-allowed;
+}
+
+
+#g2 #contenedorGenerala .dice.selected{
+    border: 2px solid red;
+}
+
