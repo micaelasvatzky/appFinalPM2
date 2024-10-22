@@ -10,13 +10,14 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/tateti.css" />
+    <link rel="stylesheet" href="/css/generala.css" />
     <title>App Final</title>
   </head>
   <body>
     <div id="main">
       <h1>My Games</h1>
       <button id="btn-g1">TaTeTi</button>
-      <button id="btn-g2">Game 2</button>
+      <button id="btn-g2">Generala</button>
       <button id="btn-g3">Game 3</button>
     </div>
     <div id="perfil" class="nodisp">
@@ -36,6 +37,7 @@
       <h2>Ta-Te-Ti</h2>
 
       <section id="contenedor"></section>
+      
 
       <h2>Turno de: <span id="turnojugador"></span></h2>
 
@@ -43,16 +45,24 @@
     </div>
     <div id="g2" class="game nodisp">
       <button id="btn-g2-back">Volver</button>
-      <h2>Game 2</h2>
-      <p>EL juego 2 aca..</p>
+      <h2>Generala</h2>
+      <button id="btnDados">Tirar dados</button>
+      <section id="contenedorGenerala">
+        <div class="dice d0"></div>
+        <div class="dice d1"></div>
+        <div class="dice d2"></div>
+        <div class="dice d3"></div>
+        <div class="dice d4"></div>
+      </section>
     </div>
     <div id="g3" class="game nodisp">
       <button id="btn-g3-back">Volver</button>
       <h2>Game 3</h2>
-      <p>EL juego 3 aca..</p>
+      
     </div>
 
     <script src="/js/app.js" type="module"></script>
     <script src="/js/tateti.js" type="module"></script>
+    <script src="/js/generala.js" type="module"></script>
   </body>
 </html>
