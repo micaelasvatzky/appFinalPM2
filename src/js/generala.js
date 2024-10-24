@@ -41,7 +41,6 @@ function toggleDadoSelection(dadoNumber) {
 function drawDados() {
   dados.forEach((dado, i) => {
     const dadoElement = document.querySelector(`#contenedorGenerala .dice.d${i}`);
-    dadoElement.innerHTML = dado;
     if(selectedDados[i]){
       dadoElement.classList.add("selected");
     }else{
@@ -53,7 +52,7 @@ function drawDados() {
 
 function tirarDados() {
   for (let i = 0; i < dados.length; i++) {
-    if (!selectedDados[i]) {
+    if (selectedDados[i]) {
       dados[i] = Math.floor(Math.random() * 6) + 1;
     }
   }
