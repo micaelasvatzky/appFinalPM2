@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/tateti.css" />
     <link rel="stylesheet" href="/css/generala.css" />
+    <link rel="preload" as="image" href="./assets/imgs/dice-1.svg" />
+    <link rel="preload" as="image" href="./assets/imgs/dice-2.svg" />
+    <link rel="preload" as="image" href="./assets/imgs/dice-3.svg" />
+    <link rel="preload" as="image" href="./assets/imgs/dice-4.svg" />
+    <link rel="preload" as="image" href="./assets/imgs/dice-5.svg" />
+    <link rel="preload" as="image" href="./assets/imgs/dice-6.svg" />
     <title>App Final</title>
   </head>
   <body>
@@ -37,7 +43,6 @@
       <h2>Ta-Te-Ti</h2>
 
       <section id="contenedor"></section>
-      
 
       <h2>Turno de: <span id="turnojugador"></span></h2>
 
@@ -46,7 +51,15 @@
     <div id="g2" class="game nodisp">
       <button id="btn-g2-back">Volver</button>
       <h2>Generala</h2>
-      <button id="btnDados">Tirar dados</button>
+
+      <img id="d0" src="./assets/imgs/dice-0.svg" alt="d0" class="nodisp" />
+      <img id="d1" src="./assets/imgs/dice-1.svg" alt="d1" class="nodisp" />
+      <img id="d2" src="./assets/imgs/dice-2.svg" alt="d2" class="nodisp" />
+      <img id="d3" src="./assets/imgs/dice-3.svg" alt="d3" class="nodisp" />
+      <img id="d4" src="./assets/imgs/dice-4.svg" alt="d4" class="nodisp" />
+      <img id="d5" src="./assets/imgs/dice-5.svg" alt="d5" class="nodisp" />
+      <img id="d6" src="./assets/imgs/dice-6.svg" alt="d6" class="nodisp" />
+
       <section id="contenedorGenerala">
         <div class="dice d0"></div>
         <div class="dice d1"></div>
@@ -54,11 +67,16 @@
         <div class="dice d3"></div>
         <div class="dice d4"></div>
       </section>
+
+      <div class="game-state">
+        Turno de jugador: <span id="generala-player"></span>, Tirada:
+        <span id="generala-jugadas"></span>
+      </div>
+      <button id="btnDados">Tirar dados</button>
     </div>
     <div id="g3" class="game nodisp">
       <button id="btn-g3-back">Volver</button>
       <h2>Game 3</h2>
-      
     </div>
 
     <script src="/js/app.js" type="module"></script>
