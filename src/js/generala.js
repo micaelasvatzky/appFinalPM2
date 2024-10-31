@@ -10,6 +10,7 @@ const game = {
   players: 2,
   turno: 1,
   scores: [],
+  round: 1
 };
 
 const DICE_SIZE = 100;
@@ -232,10 +233,27 @@ const changePlayerTurn = () => {
   game.turno++;
     if (game.turno > game.players) {
       game.turno = 1;
+      game.round++;
+      if(round == 11){
+        gameOver();
+      }
     }
     btnDados.removeAttribute("disabled");
     drawDiceImages();
     drawState();
+}
+
+const gameOver = () => {
+  btnDados.setAttribute("disabled", "disabled");
+  let winner = 0;
+  let winningScore = 0;
+  for (let i = 0; i < game.players; i++){
+    if(game.scores[i][11] > winningScore){
+      winningScore = game.scores[i][11];
+      winner = i;
+    }
+  }
+  alert(`J${winner} won with ${winningScore} points`);
 }
 
 const getGameName = (whichGame) => {
