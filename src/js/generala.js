@@ -10,7 +10,7 @@ const game = {
   players: 2,
   turno: 1,
   scores: [],
-  round: 1
+  round: 1,
 };
 
 const DICE_SIZE = 100;
@@ -26,14 +26,26 @@ const rePoker =
 const reFull =
   /1{3}(2{2}|3{2}|4{2}|5{2}|6{2})|1{2}(2{3}|3{3}|4{3}|5{3}|6{3})|2{3}(3{2}|4{2}|5{2}|6{2})|2{2}(3{3}|4{3}|5{3}|6{3})|3{3}(4{2}|5{2}|6{2})|3{2}(4{3}|5{3}|6{3})|4{3}(5{2}|6{2})|4{2}(5{3}|6{3})|5{3}6{2}|5{2}6{3}/;
 
-
 const initGame = () => {
   game.dados = [0, 0, 0, 0, 0];
   game.selectedDados = [false, false, false, false, false];
   game.moves = 1;
   game.turno = 1;
   for (let i = 0; i < game.players; i++) {
-    game.scores.push([" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", 0]);
+    game.scores.push([
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      0,
+    ]);
   }
 
   document
@@ -55,15 +67,18 @@ const drawScores = () => {
   const contHeader = document.querySelector("#g2 .scores table thead tr");
   const contGames = document.querySelector("#g2 .scores table tbody");
 
-  contHeader.innerHTML = ""; 
+  contHeader.innerHTML = "";
 
   const cellGame = document.createElement("th");
   cellGame.innerHTML = "Juego";
   contHeader.appendChild(cellGame);
 
-  for(let i = 0; i < game.players; i++){
+  for (let i = 0; i < game.players; i++) {
     const cellPlayerName = document.createElement("th");
-    cellPlayerName.innerHTML = `J${i + 1}`; // En la app usar el nick del jugador guardado en perfil
+    cellPlayerName.innerHTML = `J${i + 1}`; 
+    if (i === game.turno -1) {
+      cellPlayerName.classList.add("playerTurn");
+    }// En la app usar el nick del jugador guardado en perfil
     contHeader.appendChild(cellPlayerName);
   }
 
@@ -71,34 +86,62 @@ const drawScores = () => {
   contGames.innerHTML = "";
 
   // Juegos
-  for(let i = 0; i < 11; i++){
+  for (let i = 0; i < 11; i++) {
     const contGame = document.createElement("tr");
     const cellGameName = document.createElement("th");
     cellGameName.innerHTML = getGameName(i);
     contGame.appendChild(cellGameName);
 
-    for(let p = 0; p < game.players; p++){
+    for (let p = 0; p < game.players; p++) {
       const cellPlayerScore = document.createElement("td");
       cellPlayerScore.innerHTML = game.scores[p][i];
+
+      if (p === game.turno -1) {
+        cellPlayerScore.classList.add("playerTurn");
+
+        if (game.scores[p][i] === " ") {
+          cellPlayerScore.classList.add("resaltarFila");
+        }
+      }
+      
       contGame.appendChild(cellPlayerScore);
     }
     contGames.appendChild(contGame);
     contGame.addEventListener("click", () => {
-      if(game.dados.some((dado)=> dado === 0)){
+      if (game.dados.some((dado) => dado === 0)) {
         return;
       }
-      if(game.scores[game.turno - 1][i] !== " "){
+      if (game.scores[game.turno - 1][i] !== " ") {
         alert(`Ya se anoto el juego ${getGameName(i)}`);
         return;
-      }else{
+      } else {
         const score = gameScore(i);
-        game.scores[game.turno - 1][i] = score === 0 ? "X" : score;
+
+        if (i === 9 && !isGameMatch(reGenerala) && game.scores[game.turno - 1][10] !== "X") {
+          alert(
+            "Primero tachar la Doble antes de tachar la Generala."
+          );
+          return;
+        }
+
+        if(i === 10 && isGameMatch(reGenerala) && (game.scores[game.turno - 1][9] !== 50 || game.scores[game.turno - 1][9] !== 55)){
+          alert("No podés anotar la doble sin antes haber hecho generala");
+          return;
+        }
+
+        if (score === 0) {
+          confirmTacharPuntaje(i);  
+        } else {
+          game.scores[game.turno - 1][i] = score;
+          changePlayerTurn();
+        }
+
         game.scores[game.turno - 1][11] += score;
         drawScores();
-        changePlayerTurn();
+        
+        
       }
-
-    })
+    });
   }
 
   // Total
@@ -106,9 +149,12 @@ const drawScores = () => {
   const cellTotalName = document.createElement("th");
   cellTotalName.innerHTML = "Total";
   contTotal.appendChild(cellTotalName);
-  for(let p = 0; p < game.players; p++){
+  for (let p = 0; p < game.players; p++) {
     const cellPlayerTotal = document.createElement("td");
     cellPlayerTotal.innerHTML = game.scores[p][11];
+    if (p === game.turno -1) {
+      cellPlayerTotal.classList.add("playerTurn");
+    }
     contTotal.appendChild(cellPlayerTotal);
   }
   contGames.appendChild(contTotal);
@@ -123,8 +169,6 @@ const isGameMatch = (regex) => {
       .match(regex) !== null
   );
 };
-
-
 
 const gameScore = (whichGame) => {
   let score = 0;
@@ -221,113 +265,51 @@ const tirarDados = () => {
   game.moves++;
   if (game.moves > 3) {
     btnDados.setAttribute("disabled", "disabled");
-  }else{
+  } else {
     drawState();
   }
 };
 
 const changePlayerTurn = () => {
-  game.dados = [0, 0, 0, 0, 0];
+  //game.dados = [0, 0, 0, 0, 0];
   game.selectedDados = [false, false, false, false, false];
   game.moves = 1;
   game.turno++;
-    if (game.turno > game.players) {
-      game.turno = 1;
-      game.round++;
-      if(round == 11){
-        gameOver();
-      }
+  if (game.turno > game.players) {
+    game.turno = 1;
+    game.round++;
+    if (game.round == 12) {
+      gameOver();
     }
-    btnDados.removeAttribute("disabled");
-    drawDiceImages();
-    drawState();
-}
+  }
+  btnDados.removeAttribute("disabled");
+  game.dados.forEach((dado, i) => {
+    const dadoElement = document.querySelector(`#contenedorGenerala .dice.d${i}`);
+    drawDiceImages(dadoElement, dado); 
+  });
+  drawState();
+  drawScores();
+};
 
 const gameOver = () => {
   btnDados.setAttribute("disabled", "disabled");
   let winner = 0;
   let winningScore = 0;
-  for (let i = 0; i < game.players; i++){
-    if(game.scores[i][11] > winningScore){
+  for (let i = 0; i < game.players; i++) {
+    if (game.scores[i][11] > winningScore) {
       winningScore = game.scores[i][11];
       winner = i;
     }
   }
   alert(`J${winner} won with ${winningScore} points`);
-}
+  initGame();
+};
 
 const getGameName = (whichGame) => {
   const games = ["1", "2", "3", "4", "5", "6", "E", "F", "P", "G", "D"];
   return games[whichGame];
 };
 
-/* Draw dices code begins */
-const drawDot = (ctx, x, y) => {
-  ctx.beginPath();
-  ctx.arc(x, y, DOT_RADIUS, 0, 2 * Math.PI, false);
-  ctx.fillStyle = "#000000";
-  ctx.fill();
-  ctx.closePath();
-};
-
-const showDice = (contDiv, number) => {
-  contDiv.innerHTML = null;
-  let canvas = document.createElement("canvas");
-  canvas.setAttribute("width", "" + DICE_SIZE);
-  canvas.setAttribute("height", "" + DICE_SIZE);
-  drawDice(canvas, number);
-  contDiv.appendChild(canvas);
-};
-
-const drawDice = (cont, number) => {
-  let ctx = cont.getContext("2d");
-
-  // Borro
-  ctx.clearRect(0, 0, DICE_SIZE, DICE_SIZE);
-
-  // Dado
-  ctx.beginPath();
-  ctx.rect(0, 0, DICE_SIZE, DICE_SIZE);
-  ctx.fillStyle = "#ffffff";
-  ctx.fill();
-  ctx.closePath();
-
-  switch (number) {
-    case 1:
-      drawDot(ctx, AT_HALF, AT_HALF);
-      break;
-    case 2:
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      break;
-    case 3:
-      drawDot(ctx, AT_HALF, AT_HALF);
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      break;
-    case 4:
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
-      break;
-    case 5:
-      drawDot(ctx, AT_HALF, AT_HALF);
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
-      break;
-    case 6:
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_HALF);
-      drawDot(ctx, AT_3QUARTER, AT_HALF);
-  }
-};
-/* Draw dices code ends */
 
 /*Draw dice with images*/
 const drawDiceImages = (contDiv, number) => {
@@ -343,10 +325,38 @@ const drawDiceImages = (contDiv, number) => {
   contDiv.appendChild(img);
 };
 
+const confirmTacharPuntaje = (i) => {
+  const modal = document.getElementById("modalConfirmacion");
+  const confirmarBtn = document.getElementById("confirmarTachar");
+  const cancelarBtn = document.getElementById("cancelarTachar");
+  const nombreJuego = getGameName(i);
+  document.getElementById("mensajeModal").innerHTML = `¿Estás seguro de que deseas tachar el puntaje de ${nombreJuego}?`;
+  modal.style.display = "block";
+
+  const confirmar = () => {
+    game.scores[game.turno - 1][i] = "X";
+    drawScores();
+    changePlayerTurn();
+    cerrarModal();
+  };
+
+  const cerrarModal = () => {
+    modal.style.display = "none";
+    confirmarBtn.removeEventListener("click", confirmar);
+    cancelarBtn.removeEventListener("click", cerrarModal);
+  };
+
+  confirmarBtn.addEventListener("click", confirmar);
+  cancelarBtn.addEventListener("click", cerrarModal);
+  
+}
+
 btnDados.addEventListener("click", () => {
   tirarDados();
 });
 
+
 document.addEventListener("DOMContentLoaded", () => {
   initGame();
 });
+
