@@ -1,10 +1,9 @@
-import { Preferences } from "@capacitor/preferences";
+
 
 function hideAllSections() {
   Array.from(document.querySelectorAll(".game"))
     .concat([
-      document.getElementById("main"),
-      document.getElementById("perfil"),
+      document.getElementById("main")
     ])
     .forEach((element) => element.classList.add("nodisp"));
 }
@@ -28,44 +27,9 @@ function setupButtons() {
   });
 }
 
-async function getPreference(key) {
-  const {value} = await Preferences.get({ key });
-
-  return value === null ? null : JSON.parse(value);
-}
-
-async function setPreference(key, obj) {
-  await Preferences.set({ key, value: JSON.stringify(obj) });
-}
 
 function initApp() {
   setupButtons();
-
-  getPreference("config").then((config) => {
-    hideAllSections();
-    if (config === null) {
-      showSection("perfil");
-    } else {
-      showSection("main");
-    }
-  });
 }
 
-document.getElementById("savePreferences").addEventListener("click", e =>{
-    e.preventDefault();
-    const config = {
-        name: document.getElementById("name").value,
-        nick: document.getElementById("nickname").value
-    };
-
-    if(config.name.length === 0 || config.nick.length === 0){
-        alert("Completar ambos campos")
-    }else{
-        setPreference("config", config).then(()=>{
-          hideAllSections();
-        showSection("main");
-        });
-        
-    }
-})
 document.addEventListener("DOMContentLoaded", initApp());

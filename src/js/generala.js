@@ -271,7 +271,7 @@ const tirarDados = () => {
 };
 
 const changePlayerTurn = () => {
-  //game.dados = [0, 0, 0, 0, 0];
+  game.dados = [0, 0, 0, 0, 0];
   game.selectedDados = [false, false, false, false, false];
   game.moves = 1;
   game.turno++;
