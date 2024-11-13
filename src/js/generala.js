@@ -2,18 +2,22 @@ const min = 1;
 const max = 6;
 const section = document.getElementById("contenedorGenerala");
 const btnDados = document.getElementById("btnDados");
+const btnTabla = document.getElementById("btnTabla");
+const cerrarTabla = document.getElementById("cerrarTabla");
+const btnVolver = document.getElementById("btn-g2-back");
+const tabla = document.querySelector("#g2 .scores");
 
 const game = {
   selectedDados: [false, false, false, false, false],
   dados: [0, 0, 0, 0, 0],
-  moves: 1,
+  moves: 3,
   players: 2,
   turno: 1,
   scores: [],
   round: 1,
 };
 
-const DICE_SIZE = 100;
+const DICE_SIZE = 150;
 const DOT_RADIUS = 0.1 * DICE_SIZE;
 const AT_QUARTER = 0.25 * DICE_SIZE;
 const AT_HALF = 0.5 * DICE_SIZE;
@@ -27,10 +31,14 @@ const reFull =
   /1{3}(2{2}|3{2}|4{2}|5{2}|6{2})|1{2}(2{3}|3{3}|4{3}|5{3}|6{3})|2{3}(3{2}|4{2}|5{2}|6{2})|2{2}(3{3}|4{3}|5{3}|6{3})|3{3}(4{2}|5{2}|6{2})|3{2}(4{3}|5{3}|6{3})|4{3}(5{2}|6{2})|4{2}(5{3}|6{3})|5{3}6{2}|5{2}6{3}/;
 
 const initGame = () => {
+  btnVolver.removeAttribute("disabled");
+  btnVolver.classList.remove("disable-button");
   game.dados = [0, 0, 0, 0, 0];
   game.selectedDados = [false, false, false, false, false];
-  game.moves = 1;
+  game.moves = 3;
   game.turno = 1;
+  game.round = 1;
+
   for (let i = 0; i < game.players; i++) {
     game.scores.push([
       " ",
@@ -75,10 +83,10 @@ const drawScores = () => {
 
   for (let i = 0; i < game.players; i++) {
     const cellPlayerName = document.createElement("th");
-    cellPlayerName.innerHTML = `J${i + 1}`; 
-    if (i === game.turno -1) {
+    cellPlayerName.innerHTML = `J${i + 1}`;
+    if (i === game.turno - 1) {
       cellPlayerName.classList.add("playerTurn");
-    }// En la app usar el nick del jugador guardado en perfil
+    } // En la app usar el nick del jugador guardado en perfil
     contHeader.appendChild(cellPlayerName);
   }
 
@@ -96,14 +104,14 @@ const drawScores = () => {
       const cellPlayerScore = document.createElement("td");
       cellPlayerScore.innerHTML = game.scores[p][i];
 
-      if (p === game.turno -1) {
+      if (p === game.turno - 1) {
         cellPlayerScore.classList.add("playerTurn");
 
         if (game.scores[p][i] === " ") {
           cellPlayerScore.classList.add("resaltarFila");
         }
       }
-      
+
       contGame.appendChild(cellPlayerScore);
     }
     contGames.appendChild(contGame);
@@ -112,25 +120,36 @@ const drawScores = () => {
         return;
       }
       if (game.scores[game.turno - 1][i] !== " ") {
-        alert(`Ya se anoto el juego ${getGameName(i)}`);
+        openCloseModal(`Ya se anoto el juego ${getGameName(i)}`);
         return;
       } else {
         const score = gameScore(i);
 
-        if (i === 9 && !isGameMatch(reGenerala) && game.scores[game.turno - 1][10] !== "X") {
-          alert(
+        if (
+          i === 9 &&
+          !isGameMatch(reGenerala) &&
+          game.scores[game.turno - 1][10] !== "X"
+        ) {
+          openCloseModal(
             "Primero tachar la Doble antes de tachar la Generala."
           );
           return;
         }
 
-        if(i === 10 && isGameMatch(reGenerala) && (game.scores[game.turno - 1][9] !== 50 || game.scores[game.turno - 1][9] !== 55)){
-          alert("No podés anotar la doble sin antes haber hecho generala");
+        if (
+          i === 10 &&
+          isGameMatch(reGenerala) &&
+          (game.scores[game.turno - 1][9] !== 50 ||
+            game.scores[game.turno - 1][9] !== 55)
+        ) {
+          openCloseModal(
+            "No podés anotar la doble sin antes haber hecho generala"
+          );
           return;
         }
 
         if (score === 0) {
-          confirmTacharPuntaje(i);  
+          confirmTacharPuntaje(i);
         } else {
           game.scores[game.turno - 1][i] = score;
           changePlayerTurn();
@@ -138,8 +157,6 @@ const drawScores = () => {
 
         game.scores[game.turno - 1][11] += score;
         drawScores();
-        
-        
       }
     });
   }
@@ -152,7 +169,7 @@ const drawScores = () => {
   for (let p = 0; p < game.players; p++) {
     const cellPlayerTotal = document.createElement("td");
     cellPlayerTotal.innerHTML = game.scores[p][11];
-    if (p === game.turno -1) {
+    if (p === game.turno - 1) {
       cellPlayerTotal.classList.add("playerTurn");
     }
     contTotal.appendChild(cellPlayerTotal);
@@ -251,7 +268,7 @@ const drawState = () => {
 
 const tirarDados = () => {
   for (let i = 0; i < game.dados.length; i++) {
-    if (game.moves === 1 || game.selectedDados[i]) {
+    if (game.moves === 3 || game.selectedDados[i]) {
       game.dados[i] = Math.floor(Math.random() * 6) + 1;
     }
   }
@@ -262,19 +279,39 @@ const tirarDados = () => {
     console.log(`Game ${getGameName(whichGame)} score: ${gameScore(whichGame)}`)
   );
 
-  game.moves++;
-  if (game.moves > 3) {
+
+  game.moves--;
+  console.log(game.moves);
+
+  if (game.moves < 3 && game.moves > 0) {
+    btnVolver.setAttribute("disabled", "disabled");
+    btnVolver.classList.add("disable-button");
+  }
+
+  if (game.moves == 0) {
     btnDados.setAttribute("disabled", "disabled");
+    btnDados.classList.add("disable-button");
+    
+    drawState();
+
   } else {
     drawState();
   }
+
+  
 };
 
 const changePlayerTurn = () => {
   game.dados = [0, 0, 0, 0, 0];
   game.selectedDados = [false, false, false, false, false];
-  game.moves = 1;
+  game.moves = 3;
   game.turno++;
+
+  if(game.moves == 3){
+    btnVolver.removeAttribute("disabled");
+    btnVolver.classList.remove("disable-button");
+  }
+
   if (game.turno > game.players) {
     game.turno = 1;
     game.round++;
@@ -283,9 +320,12 @@ const changePlayerTurn = () => {
     }
   }
   btnDados.removeAttribute("disabled");
+  btnDados.classList.remove("disable-button");
   game.dados.forEach((dado, i) => {
-    const dadoElement = document.querySelector(`#contenedorGenerala .dice.d${i}`);
-    drawDiceImages(dadoElement, dado); 
+    const dadoElement = document.querySelector(
+      `#contenedorGenerala .dice.d${i}`
+    );
+    drawDiceImages(dadoElement, dado);
   });
   drawState();
   drawScores();
@@ -293,6 +333,7 @@ const changePlayerTurn = () => {
 
 const gameOver = () => {
   btnDados.setAttribute("disabled", "disabled");
+  btnDados.classList.add("disable-button");
   let winner = 0;
   let winningScore = 0;
   for (let i = 0; i < game.players; i++) {
@@ -301,7 +342,11 @@ const gameOver = () => {
       winner = i;
     }
   }
-  alert(`J${winner} won with ${winningScore} points`);
+  openCloseModal(`J${winner + 1} won with ${winningScore} points`);
+  game.scores = [];
+  game.round = 1;
+  btnVolver.removeAttribute("disabled");
+  btnVolver.classList.remove("disable-button");
   initGame();
 };
 
@@ -309,7 +354,6 @@ const getGameName = (whichGame) => {
   const games = ["1", "2", "3", "4", "5", "6", "E", "F", "P", "G", "D"];
   return games[whichGame];
 };
-
 
 /*Draw dice with images*/
 const drawDiceImages = (contDiv, number) => {
@@ -330,8 +374,10 @@ const confirmTacharPuntaje = (i) => {
   const confirmarBtn = document.getElementById("confirmarTachar");
   const cancelarBtn = document.getElementById("cancelarTachar");
   const nombreJuego = getGameName(i);
-  document.getElementById("mensajeModal").innerHTML = `¿Estás seguro de que deseas tachar el puntaje de ${nombreJuego}?`;
-  modal.style.display = "block";
+  document.getElementById(
+    "mensajeModal"
+  ).innerHTML = `¿Estás seguro de que deseas tachar el puntaje de ${nombreJuego}?`;
+  modal.style.display = "flex";
 
   const confirmar = () => {
     game.scores[game.turno - 1][i] = "X";
@@ -348,15 +394,39 @@ const confirmTacharPuntaje = (i) => {
 
   confirmarBtn.addEventListener("click", confirmar);
   cancelarBtn.addEventListener("click", cerrarModal);
-  
-}
+};
+
+const openCloseModal = (messageModal) => {
+  const modal = document.getElementById("modal");
+  const closeBtn = document.getElementById("closeModal");
+  document.getElementById("modalMessage").innerHTML = messageModal;
+  console.log(messageModal);
+  modal.style.display = "flex";
+
+  const cerrarModal = () => {
+    modal.style.display = "none";
+    closeBtn.removeEventListener("click", cerrarModal);
+  };
+
+  closeBtn.addEventListener("click", cerrarModal);
+};
+
+btnTabla.addEventListener("click", () => {
+  tabla.style.display = "flex";
+  btnDados.setAttribute("disabled", "disabled");
+  btnDados.classList.add("disable-button");
+});
+
+cerrarTabla.addEventListener("click", () => {
+  tabla.style.display = "none";
+  btnDados.removeAttribute("disabled");
+  btnDados.classList.remove("disable-button");
+});
 
 btnDados.addEventListener("click", () => {
   tirarDados();
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   initGame();
 });
-

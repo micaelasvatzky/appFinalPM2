@@ -1,36 +1,107 @@
-#g1 a{
-    text-decoration: none;
-    color:grey;
+#g1 h3 {
+  margin: 1em;
 }
 
 #g1 #contenedor {
-    display: grid;
-    grid-template-columns: repeat(3,100px);
-    gap: 5px;
-    /* justify-content: space-evenly;
-    width: 40%;
-    height: 5% ; */
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 5px;
 }
 
-#g1 #contenedor > div{
-    border: 1px solid black;
-    width: 100px;
-    height: 100px ;
+#g1 #contenedor > div {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#g1 #reiniciar {
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  padding: 0.625em 1.25em;
+  font-size: 1.125em;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 0.5em;
+  box-shadow: 0.1875em 0.1875em 0px #888;
+  transition: transform 0.1s ease-in-out;
+  margin: 0.625em;
+  text-decoration: none;
+}
+
+#g1 #reiniciar:active {
+  transform: translate(0.1875em, 0.1875em);
+  box-shadow: 0px 0px 0px #888;
+}
+
+#g1 #reiniciar.disable-button {
+  background-color: #cccccc;
+  color: #999999;
+  box-shadow: none;
+  cursor: not-allowed;
+  text-shadow: none;
+  transform: none;
+}
+
+#g1 .winner {
+  background-color: rgb(194, 95, 255);
+  color: white;
+}
+
+@media (max-width: 37.5em) {
+  h1 {
+    font-size: 2em;
+  }
+
+  h2,
+  h3 {
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 57em) and (max-width: 58em) {
+
+  #g1 h2 {
+    font-size: 1.15em;
+    margin: 0.25em;
+  }
+
+  #g1 h2,
+  #g1 h3 {
+    font-size: 1em;
+  }
+
+  #g1 #reiniciar {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    margin: 0.5em;
+    width: 25%;
+  }
+
+  #g1 #btn-g1-back{
+    width: 25%;
+  }
+
+  #g1 #contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 5px;
+  }
+
+  #g1 #contenedor > div {
+    width: 80px;
+    height: 80px;
+  }
+
+  #g1 {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-}
+    padding-bottom: 0;
+  }
 
-#g1 .disable{
-    background-color: #ccc;
-    pointer-events: none;
-}
-
-#g1 .disable:hover{
-    cursor:not-allowed;
-}
-
-#g1 .winner{
-    background-color: rgb(194, 95, 255);
-    color:white;
 }

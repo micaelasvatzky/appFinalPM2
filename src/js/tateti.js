@@ -16,23 +16,28 @@ const combinacionesGanadoras = [
 
 const section = document.getElementById("contenedor");
 let turno = document.getElementById("turnojugador");
-let h2 = document.querySelector("h2");
+let h3 = document.querySelector("h3");
+let btnVolver = document.getElementById("btn-g1-back"); 
 
 
-document.addEventListener("DOMContentLoaded", () => { initGame() });
+document.addEventListener("DOMContentLoaded", () => { 
+  initGame() 
+  document.getElementById("reiniciar").addEventListener("click", tirarMoneda)});
+
+
 function initGame() {
   turno.innerHTML = 'X';
-  console.log(turno)
+  console.log(turno);
   casillas = ["", "", "", "", "", "", "", "", ""];
   table();
   deshabilitarBoton();
+  btnVolver.classList.add("disable-button");  
   console.log(casillas);
 }
 
 function deshabilitarBoton() {
   const reiniciar = document.getElementById("reiniciar");
-  reiniciar.setAttribute("href", "javascript:tirarMoneda();");
-  reiniciar.classList.add("disable");
+  reiniciar.classList.add("disable-button");
 }
 
 function table() {
@@ -44,11 +49,12 @@ function table() {
       div.innerHTML = casillas[i];
       div.classList.add("disable");
       if (!winner() && contador == N) {
-        h2.innerHTML = "Empate"
+        h3.innerHTML = "Empate"
         habilitarBoton();
+        btnVolver.classList.remove("disable-button"); 
       } else if (winner()) {
-        h2.innerHTML = `Ganó: <span id=${turno}>${casillas[i]}</span>`;
-
+        h3.innerHTML = `Ganó: ${turno.innerHTML === "X" ? "O" : "X"}`;
+        btnVolver.classList.remove("disable-button"); 
         habilitarBoton();
       }
     });
@@ -59,13 +65,12 @@ function table() {
 
 function habilitarBoton() {
   const reiniciar = document.getElementById("reiniciar");
-  reiniciar.setAttribute("href", "javascript:tirarMoneda();");
-  reiniciar.classList.remove("disable");
+  reiniciar.classList.remove("disable-button");
   contador = 0;
 }
 
 function tirarMoneda() {
-  h2.innerHTML = `Turno de: <span id='turnojugador'>${Math.random() > 0.5 ? 'X' : 'O'}</span>`;
+  h3.innerHTML = `Turno de: <span id='turnojugador'>${Math.random() > 0.5 ? 'X' : 'O'}</span>`;
   turno = document.getElementById("turnojugador");
   initGame();
 }

@@ -17,6 +17,12 @@
     <link rel="preload" as="image" href="./assets/imgs/dice-4.svg" />
     <link rel="preload" as="image" href="./assets/imgs/dice-5.svg" />
     <link rel="preload" as="image" href="./assets/imgs/dice-6.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <title>App Final</title>
   </head>
   <body>
@@ -28,13 +34,15 @@
     </div>
     <div id="g1" class="game nodisp">
       <button id="btn-g1-back">Volver</button>
-      <h2>Ta-Te-Ti</h2>
+      <div>
+        <h2>Ta-Te-Ti</h2>
 
-      <section id="contenedor"></section>
+        <section id="contenedor"></section>
 
-      <h2>Turno de: <span id="turnojugador"></span></h2>
+        <h3>Turno de: <span id="turnojugador"></span></h3>
+      </div>
 
-      <a id="reiniciar" href="javascript:initGame(); "> reiniciar </a>
+      <button id="reiniciar">Reiniciar</button>
     </div>
     <div id="g2" class="game nodisp">
       <button id="btn-g2-back">Volver</button>
@@ -57,12 +65,15 @@
       </section>
 
       <div class="game-state">
-        Turno de jugador: <span id="generala-player"></span>, Tirada:
-        <span id="generala-jugadas"></span>
+        <p>Turno del jugador <span id="generala-player"></span></p>
+        <p>Tirada: <span id="generala-jugadas"></span></p>
       </div>
-      <button id="btnDados">Tirar dados</button>
-
+      <div id="g2Buttons">
+        <button id="btnDados">Tirar dados</button>
+        <button id="btnTabla">Tabla</button>
+      </div>
       <div class="scores">
+        <button id="cerrarTabla">Cerrar</button>
         <table>
           <thead>
             <tr></tr>
@@ -73,13 +84,18 @@
 
       <div id="modalConfirmacion" class="modal">
         <div class="modal-content">
-          <span class="close-btn" id="cerrarModal">&times;</span>
           <p id="mensajeModal"></p>
           <button id="confirmarTachar">Sí, Confirmar</button>
           <button id="cancelarTachar">No, Cancelar</button>
         </div>
       </div>
 
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <p id="modalMessage"></p>
+          <button id="closeModal">Ok</button>
+        </div>
+      </div>
     </div>
 
     <div id="g3" class="game nodisp">
