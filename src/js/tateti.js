@@ -31,6 +31,7 @@ function initGame() {
   casillas = ["", "", "", "", "", "", "", "", ""];
   table();
   deshabilitarBoton();
+  btnVolver.setAttribute("disabled", "disabled");
   btnVolver.classList.add("disable-button");  
   console.log(casillas);
 }
@@ -51,9 +52,11 @@ function table() {
       if (!winner() && contador == N) {
         h3.innerHTML = "Empate"
         habilitarBoton();
+        btnVolver.removeAttribute("disabled", "disabled");
         btnVolver.classList.remove("disable-button"); 
       } else if (winner()) {
         h3.innerHTML = `Ganó: ${turno.innerHTML === "X" ? "O" : "X"}`;
+        btnVolver.removeAttribute("disabled", "disabled");
         btnVolver.classList.remove("disable-button"); 
         habilitarBoton();
       }
