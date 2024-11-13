@@ -152,10 +152,11 @@ const drawScores = () => {
           confirmTacharPuntaje(i);
         } else {
           game.scores[game.turno - 1][i] = score;
+          game.scores[game.turno - 1][11] += score;
           changePlayerTurn();
         }
 
-        game.scores[game.turno - 1][11] += score;
+        
         drawScores();
       }
     });
