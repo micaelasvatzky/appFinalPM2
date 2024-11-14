@@ -222,7 +222,7 @@
 }
 
 /* Responsive horizontal */
-@media (min-width: 57em) and (max-width: 58em) {
+@media (orientation:landscape) and (max-width: 58em) {
   #g2 h2 {
     font-size: 1.15em;
     margin: 0.25em;

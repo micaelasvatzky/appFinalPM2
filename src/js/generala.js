@@ -86,7 +86,7 @@ const drawScores = () => {
     cellPlayerName.innerHTML = `J${i + 1}`;
     if (i === game.turno - 1) {
       cellPlayerName.classList.add("playerTurn");
-    } // En la app usar el nick del jugador guardado en perfil
+    } 
     contHeader.appendChild(cellPlayerName);
   }
 
