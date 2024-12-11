@@ -4,10 +4,12 @@ const btnNum = document.getElementById("numerosUsados");
 const bolillero = document.getElementById("bolillero");
 const leftCont = document.getElementById("leftContainer");
 const rightCont = document.getElementById("rightContainer");
-const modal = document.getElementById("modal");
-const modalContent = document.getElementById("modal-content");
+const modal = document.querySelector("#g3 #modal");
+const modalContent = document.getElementById("tabla-modal");
+const btnCloseModal = document.querySelector("#g3 #closeModal");
+let ultimoNumeroTirado = 0;
 
-const max = 89;
+const max = 90;
 
 const arrayNumbers = Array.from({ length: max }, (_, i) => i + 1);
 const numerosUsados = [];
@@ -76,11 +78,13 @@ const drawCartones = () => {
 
 const tirarNumero = () =>{
   const numeroTirado = getUniqueNumber(numerosUsados);  
+  ultimoNumeroTirado = numeroTirado;
   console.log("numeros usados", numerosUsados);
 
   bolillero.innerHTML = numeroTirado; 
   resaltarNumero(numeroTirado);
   modalNumeros(numeroTirado);
+  modal.style.display = "none";
 }
 
 const resaltarNumero = (num) =>{
@@ -94,29 +98,30 @@ const resaltarNumero = (num) =>{
   });
 } 
 
-const modalNumeros = () => {
-  const tablaModal = document.createElement("div");
+const modalNumeros = (num) => {
+  modalContent.innerHTML = "";
+
+  const tablaModal = document.getElementById("tabla-modal");
   tablaModal.classList.add("tabla-modal");
 
 
   for(let i = 0; i < max; i++){
     const celdaModal = document.createElement("div");
-    celdaModal.innerHTML = i;
-    celdaModal.id = `numero-${i}`;
+    celdaModal.innerHTML = i +1;
+    celdaModal.id = `numero-${i+1}`;
     tablaModal.appendChild(celdaModal);
   }
-  modalContent.appendChild(tablaModal);
+  resaltarNumeroEnModal(num); // Resalta el número en el modal
+  modal.style.display = "block";
 }
 
 const resaltarNumeroEnModal = (num) => {
-  const celdaModal = document.getElementById(`numero-${num}`);
-  if (celdaModal) {
-    celdaModal.classList.add("highlight-modal");
-  }
-};
-
-const abrirModal = () => {
-  modal.style.display = "flex";
+  numerosUsados.forEach((num) => {
+    const celdaModal = document.getElementById(`numero-${num}`);
+    if (celdaModal) {
+      celdaModal.classList.add("highlight-modal");
+    }
+  });
 };
 
 
@@ -124,10 +129,10 @@ const cerrarModal = () => {
   modal.style.display = "none";
 };
 
-document.getElementById("closeModal").addEventListener("click", cerrarModal);
+btnCloseModal.addEventListener("click", cerrarModal);
 
 btnNum.addEventListener("click", () => {
-  abrirModal();
+ modalNumeros(ultimoNumeroTirado);
 });
 
 
