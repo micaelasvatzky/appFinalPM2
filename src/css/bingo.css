@@ -1,0 +1,131 @@
+/* Estilo general */
+#sectionCont {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#bingoContainer {
+    display: flex;
+    justify-content: space-between; /* Para distribuir el espacio entre izquierda, centro y derecha */
+    align-items: center; /* Para centrar verticalmente el contenido */
+    gap: 30px; /* Espacio entre los contenedores */
+    padding: 20px;
+  }
+  
+  #leftContainer, #rightContainer {
+    flex: 1; /* Ambos contenedores ocupan el mismo espacio */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    flex-direction: column; /* Para organizar los tableros verticalmente */
+  }
+  
+  #centerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el título y botón en el centro */
+  }
+  
+
+/* Tablero */
+.carton {
+    display: flex;
+    flex-direction: column; /* Esto asegura que el nombre esté arriba */
+    align-items: center; /* Centra el contenido horizontalmente */
+    border: 2px solid #333;
+    padding: 10px;
+    margin: 20px;
+    width: 300px;
+    height: 200px; /* Aumentamos la altura para que haya espacio para el nombre y las celdas */
+}
+
+/* Nombre del jugador */
+.carton h3 {
+    margin-bottom: 10px; /* Espacio entre el nombre y las celdas */
+    text-align: center; /* Centrar el texto */
+    font-size: 20px; /* Tamaño del texto */
+}
+
+/* Contenedor de celdas */
+.celda-contenedor {
+    display: grid; /* Usamos Grid para las celdas */
+    grid-template-columns: repeat(3, 1fr); /* 4 columnas de igual tamaño */
+    grid-template-rows: repeat(5, 1fr); /* 4 filas de igual tamaño */
+    gap: 5px; /* Espacio entre las celdas */
+    width: 100%;
+    height: 200px; /* Ajusta el alto para que ocupe la parte inferior del cartón */
+}
+
+/* Celda */
+.celda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+#bolillero {
+    width: 100px;           /* Ancho del bolillero */
+    height: 100px;          /* Alto del bolillero */
+    background-color: #ff6b6b; /* Fondo rosa (puedes ajustar el tono del rosa según el juego) */
+    color: white;           /* Color del texto (números) en blanco */
+    font-size: 24px;        /* Tamaño de fuente para los números */
+    display: flex;          /* Usamos flexbox para centrar el contenido */
+    align-items: center;    /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    border-radius: 50%;     /* Hace que el bolillero sea redondo */
+    margin: 20px auto;      /* Alineación central y margen superior e inferior */
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Agrega una ligera sombra para dar profundidad */
+  }
+
+  .celda.highlight {
+    background-color: #ffeb3b; /* Amarillo */
+    color: #000;
+    font-weight: bold; /* Naranja */
+  }
+
+  #modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 60%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tabla-modal {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .celda-modal {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    line-height: 30px;
+  }
+  
+  .highlight-modal {
+    background-color: yellow;
+    color: black;
+    font-weight: bold;
+  }

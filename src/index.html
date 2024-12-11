@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/tateti.css" />
     <link rel="stylesheet" href="/css/generala.css" />
+    <link rel="stylesheet" href="/css/bingo.css" />
     <link rel="preload" as="image" href="./assets/imgs/dice-1.svg" />
     <link rel="preload" as="image" href="./assets/imgs/dice-2.svg" />
     <link rel="preload" as="image" href="./assets/imgs/dice-3.svg" />
@@ -30,7 +31,7 @@
       <h1>My Games</h1>
       <button id="btn-g1">TaTeTi</button>
       <button id="btn-g2">Generala</button>
-      <button id="btn-g3">Game 3</button>
+      <button id="btn-g3">Bingo</button>
     </div>
     <div id="g1" class="game nodisp">
       <button id="btn-g1-back">Volver</button>
@@ -99,12 +100,30 @@
     </div>
 
     <div id="g3" class="game nodisp">
-      <button id="btn-g3-back">Volver</button>
-      <h2>Game 3</h2>
+      <section id="bingoContainer">
+        <div id="leftContainer"></div>
+        <div id="centerContainer">
+          <button id="btn-g3-back">Volver</button>
+          <h2>Bingo</h2>
+          <div id="bolillero"></div>
+          <div id="botones">
+            <button id="numerosUsados">numeros no</button>
+            <button id="tirar">tirar</button>
+          </div>
+        </div>
+        <div id="rightContainer"></div>
+      </section>
+
+      <div id="modal" class="modal">
+        <div id="modal-content">
+          Tabla de números
+          <button id="closeModal">Ok</button>
+        </div>
     </div>
 
     <script src="/js/app.js" type="module"></script>
     <script src="/js/tateti.js" type="module"></script>
     <script src="/js/generala.js" type="module"></script>
+    <script src="/js/bingo.js" type="module"></script>
   </body>
 </html>
