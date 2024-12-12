@@ -56,6 +56,10 @@
   background-color: #f9f9f9;
 }
 
+#g3 .celda:hover{
+  cursor: pointer;
+}
+
 #g3 #bolillero {
   width: 100px;
   height: 100px;
@@ -76,7 +80,12 @@
   color: #000;
 }
 
-#g3 #modal {
+#g3 .celda.selected {
+  background-color: #ff6b6b;
+  color: #000;
+}
+
+#g3 #modal, #g3 #modalFinal, #g3 #modalNoSalio {
   display: none;
   position: fixed;
   top: 50%;
@@ -111,8 +120,9 @@
   line-height: 30px;
 }
 
+
 #g3 .highlight-modal {
-  background-color: yellow;
+  background-color: #ff6b6b;
   color: black;
 }
 

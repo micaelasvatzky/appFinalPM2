@@ -5,9 +5,22 @@ const bolillero = document.getElementById("bolillero");
 const leftCont = document.getElementById("leftContainer");
 const rightCont = document.getElementById("rightContainer");
 const modal = document.querySelector("#g3 #modal");
-const modalContent = document.getElementById("tabla-modal");
+const modalTabla = document.getElementById("tabla-modal");
 const btnCloseModal = document.querySelector("#g3 #closeModal");
+const modalContent = document.querySelector("#g3 #modal-content");
+const modalFinal = document.getElementById("modalFinal");
+const modalNo = document.getElementById("modalNoSalio");
+const modalContentNo = document.getElementById("modal-content-no");
+const modalContentFinal = document.getElementById("modal-content-final");
+const btnReset = document.getElementById("reset");
+const btnMenu = document.getElementById("volverMenu");
+const btnModalNo = document.getElementById("closeModalNo");
+
 let ultimoNumeroTirado = 0;
+let jugador1Array = [];
+let jugador2Array = [];
+let juegoTerminado = false;
+let turnoJugador = 0;
 
 const max = 90;
 
@@ -17,7 +30,7 @@ const numerosUsados = [];
 
 const initGame = () => {
   drawCartones();
-}
+};
 
 const getRandomNumbers = () => {
   return Math.floor(Math.random() * (arrayNumbers.length - 1)) + 1;
@@ -36,14 +49,14 @@ const drawCartones = () => {
   leftCont.innerHTML = "";
   rightCont.innerHTML = "";
 
-
   for (let i = 0; i < 2; i++) {
     const divCarton = document.createElement("div");
     divCarton.classList.add("carton");
-    divCarton.id = `carton-${i + 1}`;
+    turnoJugador = i + 1;
+    divCarton.id = `carton-${turnoJugador}`;
 
     const jugador = document.createElement("h3");
-    jugador.innerHTML = `Jugador ${i + 1}`;
+    jugador.innerHTML = `Jugador ${turnoJugador}`;
     divCarton.appendChild(jugador);
 
     const celdaCont = document.createElement("div");
@@ -61,8 +74,9 @@ const drawCartones = () => {
 
     numerosCarton.forEach((numero) => {
       const celda = document.createElement("div");
-      celda.classList.add("celda");
+      celda.classList.add("celda", `jugador-${i + 1}`);
       celda.innerHTML = numero;
+      celda.addEventListener("click", () => seleccionarNumero(celda, numero));
       celdaCont.appendChild(celda);
     });
 
@@ -76,44 +90,71 @@ const drawCartones = () => {
   }
 };
 
-const tirarNumero = () =>{
-  const numeroTirado = getUniqueNumber(numerosUsados);  
+const tirarNumero = () => {
+  const numeroTirado = getUniqueNumber(numerosUsados);
   ultimoNumeroTirado = numeroTirado;
   console.log("numeros usados", numerosUsados);
 
-  bolillero.innerHTML = numeroTirado; 
+  bolillero.innerHTML = numeroTirado;
   resaltarNumero(numeroTirado);
   modalNumeros(numeroTirado);
   modal.style.display = "none";
-}
+};
 
-const resaltarNumero = (num) =>{
+const resaltarNumero = (num) => {
   const allCeldas = document.querySelectorAll(".celda");
   allCeldas.forEach((celda) => {
     if (parseInt(celda.innerHTML) === num) {
       celda.classList.add("highlight");
-    }else{
+    } else {
       celda.classList.remove("highlight");
     }
   });
-} 
+};
+
+const seleccionarNumero = (celda, num) => {
+  if (numerosUsados.includes(num)) {
+    celda.classList.add("selected");
+    celda.classList.remove("highlight");
+
+    if (celda.classList.contains("jugador-1")) {
+      jugador1Array.push(num);
+      console.log("jugador1", jugador1Array);
+
+      if (jugador1Array.length === 15) {
+        modalFinalizarJuego(1);
+      }
+    } else if (celda.classList.contains("jugador-2")) {
+      jugador2Array.push(num);
+      console.log("jugador2", jugador2Array);
+
+      if (jugador2Array.length === 15) {
+        modalFinalizarJuego(2);
+      }
+    }
+  } else {
+    modalNoSalio();
+  }
+};
+
+const modalFinalizarJuego = (jugador) => {
+  juegoTerminado = true;
+  modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó!`;
+  modalFinal.style.display = "block";
+};
 
 const modalNumeros = (num) => {
-  modalContent.innerHTML = "";
+  modalTabla.innerHTML = "";
 
-  const tablaModal = document.getElementById("tabla-modal");
-  tablaModal.classList.add("tabla-modal");
-
-
-  for(let i = 0; i < max; i++){
+  for (let i = 0; i < max; i++) {
     const celdaModal = document.createElement("div");
-    celdaModal.innerHTML = i +1;
-    celdaModal.id = `numero-${i+1}`;
-    tablaModal.appendChild(celdaModal);
+    celdaModal.innerHTML = i + 1;
+    celdaModal.id = `numero-${i + 1}`;
+    modalTabla.appendChild(celdaModal);
   }
   resaltarNumeroEnModal(num); // Resalta el número en el modal
   modal.style.display = "block";
-}
+};
 
 const resaltarNumeroEnModal = (num) => {
   numerosUsados.forEach((num) => {
@@ -124,20 +165,40 @@ const resaltarNumeroEnModal = (num) => {
   });
 };
 
-
-const cerrarModal = () => {
-  modal.style.display = "none";
+const modalNoSalio = () => {
+  modalContentNo.innerHTML = "Este número no salió";
+  modalNo.style.display = "block";
 };
 
-btnCloseModal.addEventListener("click", cerrarModal);
+const cerrarModal = (modal) => {
+  modal.style.display = "none";
+  btnTirar.removeAttribute("disabled");
+  btnTirar.classList.remove("disable-button");
+};
 
-btnNum.addEventListener("click", () => {
- modalNumeros(ultimoNumeroTirado);
+btnCloseModal.addEventListener("click", () => cerrarModal(modal));
+btnModalNo.addEventListener("click", () => cerrarModal(modalNo));
+
+
+btnReset.addEventListener("click", () => {
+  cerrarModal(modalFinal);
+  initGame();
 });
 
+btnNum.addEventListener("click", () => {
+  modalNumeros(ultimoNumeroTirado);
+  btnTirar.setAttribute("disabled", "disabled");
+  btnTirar.classList.add("disable-button");
+});
 
 btnTirar.addEventListener("click", () => {
   tirarNumero();
+});
+
+btnMenu.addEventListener("click", () => {
+  document.getElementById("main").classList.remove("nodisp");
+  document.getElementById("g3").classList.add("nodisp");
+  modalFinal.style.display = "none";
 });
 
 document.addEventListener("DOMContentLoaded", () => {
