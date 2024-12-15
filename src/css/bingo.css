@@ -1,17 +1,34 @@
 /* Estilo general */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#g3 .game {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 #g3 #bingoContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 30px;
-  padding: 20px;
+  padding: 1.25em;
+  z-index: 1;
 }
 
-#g3 #leftContainer, #g3 #rightContainer {
-  flex: 1;
+#g3 h2 {
+  margin: 0;
+}
+
+#g3 #leftContainer,
+#g3 #rightContainer {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin: 0.625em;
 }
 
 #g3 #centerContainer {
@@ -25,77 +42,125 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid #333;
-  padding: 10px;
-  margin: 20px;
-  width: 300px;
-  height: 200px;
+  border: 0.125em solid #333;
+  padding: 0.625em;
+  margin: 1.875em;
+  width: 25em;
+  background-color: rgb(223, 175, 253);
 }
 
 #g3 .carton h3 {
-  margin-bottom: 10px;
+  margin-bottom: 0.625em;
   text-align: center;
-  font-size: 20px;
+  font-size: 1.25em;
+  color: #000000;
+  text-shadow: none;
 }
 
 #g3 .celda-contenedor {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.3125em;
   width: 100%;
-  height: 200px;
+  height: 12.5em;
 }
 
 #g3 .celda {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc;
-  font-size: 18px;
+  border: 0.0625em solid #ccc;
+  font-size: 1.125em;
   font-weight: bold;
   background-color: #f9f9f9;
 }
 
-#g3 .celda:hover{
+#g3 .celda:hover {
   cursor: pointer;
 }
 
 #g3 #bolillero {
-  width: 100px;
-  height: 100px;
-  background-color: #ff6b6b;
+  width: 6.25em;
+  height: 6.25em;
+  background-color: rgb(194, 95, 255);
   color: white;
-  font-size: 24px;
+  font-size: 1.5em;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  margin: 20px auto;
-  padding: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: #000 2px solid;
+  margin: 1.25em auto;
+  padding: 0.625em;
+  box-shadow: 0 0.25em 0.625em rgba(0, 0, 0, 0.1);
+}
+
+#g3 #bolillero p{
+  font-size: 2em;
 }
 
 #g3 .celda.highlight {
-  background-color: #ffeb3b;
+  background-color: #ffb2b2;
   color: #000;
 }
 
 #g3 .celda.selected {
-  background-color: #ff6b6b;
+  background-color: #6baae9;
   color: #000;
 }
 
-#g3 #modal, #g3 #modalFinal, #g3 #modalNoSalio {
+#g3 #modal,
+#g3 #modalFinal,
+#g3 #modalNoSalio {
   display: none;
+  flex-direction: column;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  padding: 20px;
+  padding: 1.25em;
+  justify-content: center;
+  align-items: center;
+}
+
+#g3 #modalFinal{
+  height: 20em;
+  width: 30em;
+}
+
+#g3 #modal-content-final{
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+#g3 #modalFinal #btnFinal{ 
+  display: flex;
+  flex-direction: row;
+}
+
+#g3 #modalFinal #btnFinal button{ 
+  width: auto;
+  margin: 0.5em;
+}
+
+#g3 #modalNoSalio {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25em;
+}
+
+#g3 #botones {
+  display: flex;
+  justify-content: space-around;
+}
+
+#botones button {
+  margin: 0.25em 0.3125em;
 }
 
 #g3 #modal-content {
@@ -104,36 +169,290 @@
   align-items: center;
 }
 
+#g3 #modal {
+  width: 31.25em;
+  height: 31.25em;
+}
+
 #g3 .tabla-modal {
   display: grid;
-  grid-template-columns: repeat(15, 1fr);
-  grid-template-rows:  repeat(5, 1fr);;
-  gap: 2px;
-  margin-bottom: 10px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  gap: 0.3125em;
+  margin-bottom: 0.625em;
 }
 
 #g3 .tabla-modal div {
-  width: 30px;
-  height: 30px;
+  width: 2.5em;
+  height: 1.875em;
   text-align: center;
-  border: 1px solid #ccc;
-  line-height: 30px;
+  border: 0.0625em solid #ccc;
+  line-height: 1.875em;
+  padding-left: 0.25em;
 }
-
 
 #g3 .highlight-modal {
   background-color: #ff6b6b;
   color: black;
 }
 
-#g3 #closeModal{
-  padding: 10px;
-  width: 25%;
+#g3 #closeModal {
+  padding: 0.625em;
+  width: 15.625%;
 }
 
-#g3 #btn-g3-back {
-  margin: 1.25em 0;
+#g3 #closeModalNo{
   padding: 1em;
-  width: 55%;
+}
+
+#g3 button {
   font-size: 1em;
+}
+
+#g3 #btn-g3-back{
+  width: 60%;
+}
+
+.modal-overlay {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 999; 
+}
+
+
+#g3 .modal {
+  position: relative;
+  display: none; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  padding: 1.25em;
+  overflow: hidden;
+}
+
+
+/* Responsive */
+@media (max-width: 37.5em) and (min-height: 43.75em) {
+  #g3 #bingoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  #g3 #leftContainer,
+  #g3 #rightContainer {
+    display: flex;
+    height: auto;
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  #g3 #centerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1.1);
+    margin: 1.25em;
+  }
+
+  #g3 .carton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.9375em;
+    margin: 0;
+    width: 21.875em;
+  }
+
+  #g3 .celda-contenedor {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.1875em;
+  }
+
+  #g3 .celda {
+    font-size: 1.5em;
+    padding: 0.3125em 0.125em;
+  }
+
+  #g3 #bolillero {
+    width: 5em;
+    height: 5em;
+    font-size: 1.25em;
+    margin: 0.625em auto;
+  }
+
+  #g3 #bolillero p{
+    font-size: 1.5em;
+  }
+
+  #g3 #modal {
+    height: auto;
+    width: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #g3 #modalFinal{
+    height: 20em;
+    width: 22.5em;
+  }
+  
+  #g3 #modal-content-final{
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+  
+  #g3 #modalFinal #btnFinal{ 
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #g3 #modalFinal #btnFinal button{ 
+    width: auto;
+    height: 3em;
+    margin-bottom: 1.5em;
+  }
+  
+
+  #g3 #modalNoSalio {
+    height: 12.5em;
+    width: 18em;
+    font-size: 1.25em;
+  }
+
+  #g3 .tabla-modal {
+    grid-template-columns: repeat(5, 1fr);
+    font-size: 1.25em;
+    column-gap: 0.3125em;
+    row-gap: 0.1875em;
+  }
+
+  #g3 .tabla-modal div {
+    width: 3.125em;
+    height: auto;
+    line-height: 1.5625em;
+  }
+
+  #g3 #closeModal {
+    width: 31.25%;
+    font-size: 0.9em;
+  }
+
+  #g3 #btn-g3-back {
+    font-size: 0.9em;
+    margin-top: 0;
+  }
+}
+
+
+
+@media (max-width: 57.1875em) and (max-height: 25.75em) {
+  #g3 #bingoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  #g3 #leftContainer,
+  #g3 #rightContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.3125em;
+  }
+
+  #g3 #centerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.625em;
+  }
+
+  #g3 .carton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.625em;
+    margin: 0.625em;
+    width: 17em;
+  }
+
+  #g3 .celda-contenedor {
+    justify-content: center;
+    grid-template-columns: repeat(5, 1fr);
+    height: auto;
+  }
+
+  #g3 .celda {
+    font-size: 1em;
+    padding: 0.3125em;
+    height: 2.5em;
+  }
+
+  #g3 #bolillero {
+    width: 6.25em;
+    height: 6.25em;
+    font-size: 1.125em;
+    margin: 1.25em;
+  }
+
+  #g3 #bolillero p{
+    font-size: 1.5em;
+  }
+
+  #g3 #modal {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    padding: 0.9375em 1.875em;
+  }
+
+  #g3 #modalNoSalio {
+    width: 18.75em;
+    height: 12.5em;
+    font-size: 1em;
+  }
+
+  #g3 .tabla-modal {
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0.3125em;
+    margin-bottom: 0.3125em;
+  }
+
+  #g3 .tabla-modal div {
+    width: 2.5em;
+  }
+
+  #g3 #modal-content h3 {
+    margin-bottom: 0.7em;
+  }
+
+  #g3 button {
+    height: auto;
+    padding: 1.25em;
+  }
 }

@@ -6,6 +6,7 @@ const btnTabla = document.getElementById("btnTabla");
 const cerrarTabla = document.getElementById("cerrarTabla");
 const btnVolver = document.getElementById("btn-g2-back");
 const tabla = document.querySelector("#g2 .scores");
+const overlay = document.querySelector(".modal-overlay-generala");
 
 const game = {
   selectedDados: [false, false, false, false, false],
@@ -343,7 +344,7 @@ const gameOver = () => {
       winner = i;
     }
   }
-  openCloseModal(`J${winner + 1} won with ${winningScore} points`);
+  openModalFinal();
   game.scores = [];
   game.round = 1;
   btnVolver.removeAttribute("disabled");
@@ -397,6 +398,12 @@ const confirmTacharPuntaje = (i) => {
   cancelarBtn.addEventListener("click", cerrarModal);
 };
 
+const openModalFinal = (jugador) => {
+  modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó!`;
+  modalFinal.style.display = "flex";
+  overlay.style.display = "block";
+};
+
 const openCloseModal = (messageModal) => {
   const modal = document.getElementById("modal");
   const closeBtn = document.getElementById("closeModal");
@@ -416,12 +423,14 @@ btnTabla.addEventListener("click", () => {
   tabla.style.display = "flex";
   btnDados.setAttribute("disabled", "disabled");
   btnDados.classList.add("disable-button");
+  overlay.style.display = "block";
 });
 
 cerrarTabla.addEventListener("click", () => {
   tabla.style.display = "none";
   btnDados.removeAttribute("disabled");
   btnDados.classList.remove("disable-button");
+  overlay.style.display = "none";
 });
 
 btnDados.addEventListener("click", () => {

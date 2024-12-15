@@ -67,7 +67,7 @@
 
       <div class="game-state">
         <p>Turno del jugador <span id="generala-player"></span></p>
-        <p>Tirada: <span id="generala-jugadas"></span></p>
+        <p>Tiros que quedan <span id="generala-jugadas"></span></p>
       </div>
       <div id="g2Buttons">
         <button id="btnDados">Tirar dados</button>
@@ -83,11 +83,13 @@
         </table>
       </div>
 
+      <div class="modal-overlay-generala"></div> 
+
       <div id="modalConfirmacion" class="modal">
         <div class="modal-content">
           <p id="mensajeModal"></p>
-          <button id="confirmarTachar">Sí, Confirmar</button>
-          <button id="cancelarTachar">No, Cancelar</button>
+          <button id="confirmarTachar">Sí</button>
+          <button id="cancelarTachar">No</button>
         </div>
       </div>
 
@@ -95,6 +97,14 @@
         <div class="modal-content">
           <p id="modalMessage"></p>
           <button id="closeModal">Ok</button>
+        </div>
+      </div>
+
+      <div id="modalFinal" class="modal">
+        <div id="modal-content-final"></div>
+        <div id="btnFinal">
+          <button id="volverMenu">Volver al menú</button>
+          <button id="reset">Volver a jugar</button>
         </div>
       </div>
     </div>
@@ -107,14 +117,17 @@
           <h2>Bingo</h2>
           <div id="bolillero"></div>
           <div id="botones">
-            <button id="numerosUsados">numeros no</button>
+            <button id="numerosUsados">tabla</button>
             <button id="tirar">tirar</button>
           </div>
         </div>
         <div id="rightContainer"></div>
       </section>
 
+      <div class="modal-overlay"></div> 
+
       <div id="modal" class="modal">
+        
         <div id="modal-content">
           <h3>Tabla de números</h3>
           <div id="tabla-modal" class="tabla-modal"></div>
@@ -129,8 +142,10 @@
 
       <div id="modalFinal" class="modal">
         <div id="modal-content-final"></div>
-        <button id="volverMenu">Volver al menú</button>
-        <button id="reset">Volver a jugar</button>
+        <div id="btnFinal">
+          <button id="volverMenu">Volver al menú</button>
+          <button id="reset">Volver a jugar</button>
+        </div>
       </div>
     </div>
 

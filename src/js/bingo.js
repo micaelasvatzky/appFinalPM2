@@ -15,6 +15,8 @@ const modalContentFinal = document.getElementById("modal-content-final");
 const btnReset = document.getElementById("reset");
 const btnMenu = document.getElementById("volverMenu");
 const btnModalNo = document.getElementById("closeModalNo");
+const overlay = document.querySelector(".modal-overlay");
+
 
 let ultimoNumeroTirado = 0;
 let jugador1Array = [];
@@ -95,7 +97,7 @@ const tirarNumero = () => {
   ultimoNumeroTirado = numeroTirado;
   console.log("numeros usados", numerosUsados);
 
-  bolillero.innerHTML = numeroTirado;
+  bolillero.innerHTML = `<p>${numeroTirado}</p>`;
   resaltarNumero(numeroTirado);
   modalNumeros(numeroTirado);
   modal.style.display = "none";
@@ -140,10 +142,12 @@ const seleccionarNumero = (celda, num) => {
 const modalFinalizarJuego = (jugador) => {
   juegoTerminado = true;
   modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó!`;
-  modalFinal.style.display = "block";
+  modalFinal.style.display = "flex";
+  overlay.style.display = "block";
 };
 
 const modalNumeros = (num) => {
+  
   modalTabla.innerHTML = "";
 
   for (let i = 0; i < max; i++) {
@@ -153,7 +157,9 @@ const modalNumeros = (num) => {
     modalTabla.appendChild(celdaModal);
   }
   resaltarNumeroEnModal(num); // Resalta el número en el modal
-  modal.style.display = "block";
+  modal.style.display = "flex";
+  overlay.style.display = "block";
+
 };
 
 const resaltarNumeroEnModal = (num) => {
@@ -167,13 +173,15 @@ const resaltarNumeroEnModal = (num) => {
 
 const modalNoSalio = () => {
   modalContentNo.innerHTML = "Este número no salió";
-  modalNo.style.display = "block";
+  modalNo.style.display = "flex";
+  overlay.style.display = "block";
 };
 
 const cerrarModal = (modal) => {
   modal.style.display = "none";
   btnTirar.removeAttribute("disabled");
   btnTirar.classList.remove("disable-button");
+  overlay.style.display = "none";
 };
 
 btnCloseModal.addEventListener("click", () => cerrarModal(modal));
