@@ -7,6 +7,10 @@ const cerrarTabla = document.getElementById("cerrarTabla");
 const btnVolver = document.getElementById("btn-g2-back");
 const tabla = document.querySelector("#g2 .scores");
 const overlay = document.querySelector(".modal-overlay-generala");
+const modalFinal = document.getElementById("modalFinalGenerala");
+const btnResetFinal = document.getElementById("resetGenerala");
+const btnVolverFinal = document.getElementById("volverMenuGenerala");
+const modalContentFinal = document.getElementById("modal-content-final-generala");
 
 const game = {
   selectedDados: [false, false, false, false, false],
@@ -344,7 +348,7 @@ const gameOver = () => {
       winner = i;
     }
   }
-  openModalFinal();
+  openModalFinal(winner);
   game.scores = [];
   game.round = 1;
   btnVolver.removeAttribute("disabled");
@@ -399,10 +403,22 @@ const confirmTacharPuntaje = (i) => {
 };
 
 const openModalFinal = (jugador) => {
+  tabla.style.display = "none";
   modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó!`;
   modalFinal.style.display = "flex";
   overlay.style.display = "block";
 };
+
+btnResetFinal.addEventListener("click", () =>{
+  modalFinal.style.display = "none";
+  initGame();
+});
+
+btnVolverFinal.addEventListener("click", () =>{
+  document.getElementById("main").classList.remove("nodisp");
+  document.getElementById("g2").classList.add("nodisp");
+  modalFinal.style.display = "none";
+});
 
 const openCloseModal = (messageModal) => {
   const modal = document.getElementById("modal");

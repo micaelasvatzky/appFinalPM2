@@ -2,6 +2,10 @@
   margin: 1em;
 }
 
+#g1 #btn-g1-back{
+  width: 60%;
+}
+
 #g1 #contenedor {
   display: grid;
   grid-template-columns: repeat(3, 100px);
@@ -9,6 +13,7 @@
 }
 
 #g1 #contenedor > div {
+  font-size: 2em;
   border: 1px solid black;
   width: 100px;
   height: 100px;
@@ -49,6 +54,14 @@
 #g1 .winner {
   background-color: rgb(194, 95, 255);
   color: white;
+}
+
+.x {
+  color: blue;
+}
+
+.o {
+  color: red;
 }
 
 @media (max-width: 37.5em) {

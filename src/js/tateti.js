@@ -45,6 +45,11 @@ function table() {
       play(i);
       div.innerHTML = casillas[i];
       div.classList.add("disable");
+      if (casillas[i] === "X") {
+        div.classList.add("x"); // Aplica la clase para X
+      } else if (casillas[i] === "O") {
+        div.classList.add("o"); // Aplica la clase para O
+      }
       if (!winner() && contador == N) {
         h3.innerHTML = "Empate";
         habilitarBoton();

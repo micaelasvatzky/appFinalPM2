@@ -101,6 +101,7 @@ const tirarNumero = () => {
   resaltarNumero(numeroTirado);
   modalNumeros(numeroTirado);
   modal.style.display = "none";
+  overlay.style.display = "none";
 };
 
 const resaltarNumero = (num) => {
