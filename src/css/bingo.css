@@ -104,6 +104,12 @@
   color: #000;
 }
 
+#g3 .celda.highlight-linea {
+  background-color: rgb(154 0 255);;
+  color: #fff;
+}
+
+
 #g3 .celda.selected {
   background-color: #6baae9;
   color: #000;
@@ -265,7 +271,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: scale(1.1);
+    transform: scale(0.95);
     margin: 1.25em;
   }
 
@@ -358,8 +364,11 @@
     font-size: 0.9em;
     margin-top: 0;
   }
-}
 
+  #g3 button{
+    font-size: 0.88em;
+  }
+}
 
 
 @media (max-width: 57.1875em) and (max-height: 25.75em) {
@@ -386,6 +395,8 @@
     justify-content: center;
     align-items: center;
     margin: 0.625em;
+    transform: scale(0.8);
+    width: 35%;
   }
 
   #g3 .carton {

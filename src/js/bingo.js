@@ -16,11 +16,13 @@ const btnReset = document.getElementById("reset");
 const btnMenu = document.getElementById("volverMenu");
 const btnModalNo = document.getElementById("closeModalNo");
 const overlay = document.querySelector(".modal-overlay");
+let puntosJugador1 = 0;
+let puntosJugador2 = 0;
 
 
 let ultimoNumeroTirado = 0;
-let jugador1Array = [];
-let jugador2Array = [];
+let jugador1Array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "",""];
+let jugador2Array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "",""];
 let juegoTerminado = false;
 let turnoJugador = 0;
 
@@ -32,6 +34,9 @@ const numerosUsados = [];
 
 const initGame = () => {
   drawCartones();
+  puntosJugador1 = 0;
+  puntosJugador2 = 0;
+  actualizarPuntos();
 };
 
 const getRandomNumbers = () => {
@@ -74,9 +79,10 @@ const drawCartones = () => {
 
     numerosCarton.sort((a, b) => a - b);
 
-    numerosCarton.forEach((numero) => {
+    numerosCarton.forEach((numero, index) => {
       const celda = document.createElement("div");
       celda.classList.add("celda", `jugador-${i + 1}`);
+      celda.id = index;
       celda.innerHTML = numero;
       celda.addEventListener("click", () => seleccionarNumero(celda, numero));
       celdaCont.appendChild(celda);
@@ -116,33 +122,86 @@ const resaltarNumero = (num) => {
 };
 
 const seleccionarNumero = (celda, num) => {
+  const index = parseInt(celda.id);
+
   if (numerosUsados.includes(num)) {
     celda.classList.add("selected");
     celda.classList.remove("highlight");
-
-    if (celda.classList.contains("jugador-1")) {
-      jugador1Array.push(num);
-      console.log("jugador1", jugador1Array);
-
-      if (jugador1Array.length === 15) {
-        modalFinalizarJuego(1);
-      }
-    } else if (celda.classList.contains("jugador-2")) {
-      jugador2Array.push(num);
-      console.log("jugador2", jugador2Array);
-
-      if (jugador2Array.length === 15) {
-        modalFinalizarJuego(2);
-      }
-    }
+    verificarBingo(celda, num, index);
+    verificarLinea(1);
+    verificarLinea(2);
   } else {
     modalNoSalio();
   }
 };
 
+const actualizarPuntos = () => {
+  document.getElementById("puntosJugador1").innerText = puntosJugador1;
+  document.getElementById("puntosJugador2").innerText = puntosJugador2;
+};
+
+const verificarBingo = (celda, num, index) =>{
+  if (celda.classList.contains("jugador-1")) {
+    jugador1Array[index] = num;
+    console.log("jugador1", jugador1Array);
+
+    if (jugador1Array.every((num) => num !== "")) {
+      puntosJugador1 += 20;
+      actualizarPuntos();
+      modalFinalizarJuego(1);
+      
+    }
+  } else if (celda.classList.contains("jugador-2")) {
+    jugador2Array[index] = num;
+    console.log("jugador2", jugador2Array);
+
+    if (jugador2Array.every((num) => num !== "")) {
+      puntosJugador2 += 20;
+      actualizarPuntos();
+      modalFinalizarJuego(2);
+      
+    }
+  }
+};
+
+const verificarLinea = (jugador) => {
+  const filas = [
+    [0, 1, 2, 3, 4],    
+    [5, 6, 7, 8, 9],    
+    [10, 11, 12, 13, 14] 
+  ];
+
+  
+  const celdasJugador = Array.from(document.querySelectorAll(`.celda.jugador-${jugador}`));
+  console.log("jugador", jugador);
+  
+  filas.forEach((fila) => {
+   
+    if (fila.every((index) => celdasJugador[index].classList.contains("selected"))) {
+     
+      fila.forEach((index) => {
+        celdasJugador[index].classList.remove("selected"); 
+        celdasJugador[index].classList.add("highlight-linea"); 
+        console.log(`Línea completada por el jugador ${jugador}`);
+      });
+
+    
+      if (jugador === 1) {
+        puntosJugador1 += 5; 
+        console.log("linea de", jugador);
+      } else {
+        puntosJugador2 += 5; 
+        console.log("linea de", jugador);
+      }
+      actualizarPuntos();
+    }
+  });
+};
+
+
 const modalFinalizarJuego = (jugador) => {
   juegoTerminado = true;
-  modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó!`;
+  modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó ${jugador === 1 ? puntosJugador1 : puntosJugador2} puntos!`;
   modalFinal.style.display = "flex";
   overlay.style.display = "block";
 };
@@ -157,7 +216,7 @@ const modalNumeros = (num) => {
     celdaModal.id = `numero-${i + 1}`;
     modalTabla.appendChild(celdaModal);
   }
-  resaltarNumeroEnModal(num); // Resalta el número en el modal
+  resaltarNumeroEnModal(num); 
   modal.style.display = "flex";
   overlay.style.display = "block";
 

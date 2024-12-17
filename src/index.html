@@ -31,8 +31,8 @@
       <h1>My Games</h1>
       <div id="btnJuegos">
         <button id="btn-g1">TaTeTi</button>
-      <button id="btn-g2">Generala</button>
-      <button id="btn-g3">Bingo</button>
+        <button id="btn-g2">Generala</button>
+        <button id="btn-g3">Bingo</button>
       </div>
     </div>
     <div id="g1" class="game nodisp">
@@ -85,7 +85,7 @@
         </table>
       </div>
 
-      <div class="modal-overlay-generala"></div> 
+      <div class="modal-overlay-generala"></div>
 
       <div id="modalConfirmacion" class="modal">
         <div class="modal-content">
@@ -113,7 +113,11 @@
 
     <div id="g3" class="game nodisp">
       <section id="bingoContainer">
-        <div id="leftContainer"></div>
+        <div id="tablero1">
+          <p>Puntos: <span id="puntosJugador1"></span></p>
+          <div id="leftContainer"></div>
+        </div>
+
         <div id="centerContainer">
           <button id="btn-g3-back">Volver</button>
           <h2>Bingo</h2>
@@ -123,13 +127,15 @@
             <button id="tirar">tirar</button>
           </div>
         </div>
-        <div id="rightContainer"></div>
+        <div id="tablero2">
+          <p>Puntos: <span id="puntosJugador2"></span></p>
+          <div id="rightContainer"></div>
+        </div>
       </section>
 
-      <div class="modal-overlay"></div> 
+      <div class="modal-overlay"></div>
 
       <div id="modal" class="modal">
-        
         <div id="modal-content">
           <h3>Tabla de números</h3>
           <div id="tabla-modal" class="tabla-modal"></div>
