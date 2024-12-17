@@ -287,6 +287,10 @@ const tirarDados = () => {
 
 
   game.moves--;
+  if(game.moves < 0){
+    game.moves = 0;
+  }
+  
   console.log(game.moves);
 
   if (game.moves < 3 && game.moves > 0) {

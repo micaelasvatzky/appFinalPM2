@@ -9,6 +9,8 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: hidden;
+  min-height: 100vh;
 }
 
 #g3 #bingoContainer {
@@ -131,6 +133,7 @@
   padding: 1.25em;
   justify-content: center;
   align-items: center;
+  overflow: hidden; 
 }
 
 #g3 #modalFinal{
@@ -252,6 +255,10 @@
 
 /* Responsive */
 @media (max-width: 37.5em) and (min-height: 43.75em) {
+  body{
+    overflow-y: hidden;
+  }
+  
   #g3 #bingoContainer {
     display: flex;
     flex-direction: column;
@@ -273,6 +280,7 @@
     align-items: center;
     transform: scale(0.95);
     margin: 1.25em;
+    overflow: hidden;
   }
 
   #g3 .carton {
@@ -372,6 +380,11 @@
 
 
 @media (max-width: 57.1875em) and (max-height: 25.75em) {
+
+  body{
+    overflow-x: hidden;
+  }
+
   #g3 #bingoContainer {
     display: flex;
     flex-direction: row;

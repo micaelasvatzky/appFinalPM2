@@ -201,7 +201,7 @@ const verificarLinea = (jugador) => {
 
 const modalFinalizarJuego = (jugador) => {
   juegoTerminado = true;
-  modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó ${jugador === 1 ? puntosJugador1 : puntosJugador2} puntos!`;
+  modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó con ${jugador === 1 ? puntosJugador1 : puntosJugador2} puntos!`;
   modalFinal.style.display = "flex";
   overlay.style.display = "block";
 };
@@ -267,6 +267,7 @@ btnMenu.addEventListener("click", () => {
   document.getElementById("main").classList.remove("nodisp");
   document.getElementById("g3").classList.add("nodisp");
   modalFinal.style.display = "none";
+  overlay.style.display = "none";
 });
 
 document.addEventListener("DOMContentLoaded", () => {
