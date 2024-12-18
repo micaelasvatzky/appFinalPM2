@@ -1,10 +1,6 @@
-
-
 function hideAllSections() {
   Array.from(document.querySelectorAll(".game"))
-    .concat([
-      document.getElementById("main")
-    ])
+    .concat([document.getElementById("main")])
     .forEach((element) => element.classList.add("nodisp"));
 }
 
@@ -13,7 +9,7 @@ function showSection(sectionId) {
 }
 
 function setupButtons() {
-  document.querySelectorAll(".game").forEach(gameElement => {
+  document.querySelectorAll(".game").forEach((gameElement) => {
     const id = gameElement.getAttribute("id");
     document.getElementById(`btn-${id}`).addEventListener("click", () => {
       console.log(id);
@@ -26,7 +22,6 @@ function setupButtons() {
     });
   });
 }
-
 
 function initApp() {
   setupButtons();

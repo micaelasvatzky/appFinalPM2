@@ -10,10 +10,13 @@ body {
   align-items: center;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
-  background-color: #f0f0f0;
   color: #333;
   min-height: 100vh;
   margin: 0;
+  background-image: url("../assets/imgs/2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .nodisp {
@@ -21,7 +24,7 @@ body {
 }
 
 h1, h2, h3 {
-  color: #3c91e6;
+  color: #15487b;
   text-shadow: 0.06em 0.06em 0px #fff;
   letter-spacing: 0.06em;
   margin-bottom: 1.25em;
