@@ -39,7 +39,7 @@
 
 #g2Buttons {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
 }
 
 #g2Buttons button.disable-button {
