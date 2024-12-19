@@ -1,7 +1,7 @@
 const sectionCont = document.getElementById("bingoContainer");
 const btnTirar = document.getElementById("tirar");
 const btnNum = document.getElementById("numerosUsados");
-const bolillero = document.getElementById("bolillero");
+let bolillero = document.getElementById("bolillero");
 const leftCont = document.getElementById("leftContainer");
 const rightCont = document.getElementById("rightContainer");
 const modal = document.querySelector("#g3 #modal");
@@ -29,14 +29,19 @@ let turnoJugador = 0;
 const max = 90;
 
 const arrayNumbers = Array.from({ length: max }, (_, i) => i + 1);
-const numerosUsados = [];
+let numerosUsados = [];
 //Length del array:max, 2do argumento: funcion map: valor actual (_ para ignorar) e i (indice actual), i + 1 (para que empiece de 1 y no de 0)
 
 const initGame = () => {
-  drawCartones();
+  juegoTerminado = false;
+  numerosUsados = [];
+  ultimoNumeroTirado = 0;
+jugador1Array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "",""];
+jugador2Array = ["", "", "", "", "", "", "", "", "", "", "", "", "", "",""];
   puntosJugador1 = 0;
   puntosJugador2 = 0;
   actualizarPuntos();
+  drawCartones();
 };
 
 const getRandomNumbers = () => {
@@ -201,6 +206,15 @@ const verificarLinea = (jugador) => {
 
 const modalFinalizarJuego = (jugador) => {
   juegoTerminado = true;
+  bolillero.innerHTML = "";
+
+  numerosUsados.forEach((num) => {
+    const celdaModal = document.getElementById(`numero-${num}`);
+    if (celdaModal) {
+      celdaModal.classList.remove("highlight-modal");
+    }
+  });
+  
   modalContentFinal.innerHTML = `¡Jugador ${jugador} ganó con ${jugador === 1 ? puntosJugador1 : puntosJugador2} puntos!`;
   modalFinal.style.display = "flex";
   overlay.style.display = "block";

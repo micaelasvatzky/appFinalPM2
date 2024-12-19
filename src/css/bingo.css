@@ -30,7 +30,7 @@
   align-items: center;
   padding: 1.25em;
   z-index: 1;
-  padding-top: 5em;
+  padding-top: 8em;
 }
 
 #g3 h2 {
@@ -279,7 +279,7 @@
     flex-direction: column;
     justify-content: space-around;
     transform: scale(0.9);
-    padding-top: 2.5em;
+    padding-top: 2em;
   }
 
   #g3 #leftContainer,
@@ -414,7 +414,7 @@
 }
 
 
-@media (max-width: 57.1875em) and (max-height: 25.75em) and (orientation:landscape){
+@media (min-width: 57em) and (max-width: 58em){
 
   body{
     overflow-x: hidden;
@@ -425,7 +425,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-top: 1em;
+    padding-top: 1em;;
   }
 
   #g3 #leftContainer,
