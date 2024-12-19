@@ -152,7 +152,7 @@ h1{
   }
 }
 
-@media (min-width: 57em) and (max-width: 58em) {
+@media (min-width: 57em) and (max-width: 58em) and (orientation: landscape){
   h1 {
     font-size: 2em;
     margin-bottom: 0.5em;

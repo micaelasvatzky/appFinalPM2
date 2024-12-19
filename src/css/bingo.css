@@ -414,7 +414,7 @@
 }
 
 
-@media (max-width: 57.1875em) and (max-height: 25.75em) {
+@media (max-width: 57.1875em) and (max-height: 25.75em) and (orientation:landscape){
 
   body{
     overflow-x: hidden;

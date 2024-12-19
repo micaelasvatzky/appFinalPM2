@@ -85,7 +85,7 @@
   }
 }
 
-@media (min-width: 57em) and (max-width: 58em) {
+@media (min-width: 57em) and (max-width: 58em) and (orientation:landscape) {
   #g1 h2 {
     font-size: 1.15em;
     margin: 0.25em;
